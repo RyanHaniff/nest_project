@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 // latest version of uuid, ranmed it like in python
 import { v4 as uuid } from "uuid";
+import { CreateTaskDTO } from './dto/create-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -13,7 +14,9 @@ export class TasksService {
 		return this.tasks;
 	}
 
-	createTask(title: string, description: string): Task {
+	createTask(createTaskDTO: CreateTaskDTO): Task {
+    // destructoring the DTO
+    const {title, description } = createTaskDTO;
 		const task: Task = {
       // using UUID to generate ID
 			id: uuid(),
