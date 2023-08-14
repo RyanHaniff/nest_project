@@ -14,6 +14,10 @@ export class TasksService {
 		return this.tasks;
 	}
 
+  getTaskById(id: string) : Task {
+    return this.tasks.find((task) => task.id === id); //without the curly braces it gets automatically returned
+  }
+
 	createTask(createTaskDTO: CreateTaskDTO): Task {
     // destructoring the DTO
     const {title, description } = createTaskDTO;
