@@ -1,6 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	Patch,
+	Post,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { Task } from './task.model';
+import { Task, TaskStatus } from './task.model';
 import { CreateTaskDTO } from './dto/create-task.dto';
 
 @Controller('tasks')
@@ -27,6 +35,14 @@ export class TasksController {
 	@Delete('/:id')
 	deleteTask(@Param('id') id: string): void {
 		return this.tasksService.deleteTask(id);
+	}
+
+	@Patch('/:id/status')
+	updateTaskStatus(
+		@Param('id') id: string, //id is taken from the @Patch id
+		@Body('status') status: TaskStatus, //status is taken from @Patch status
+	): Task {
+		return this.tasksService.updateTaskStatus(id, status);
 	}
 
 	// we are cherry picking the contents we want from the body
