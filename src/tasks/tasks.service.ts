@@ -25,7 +25,7 @@ export class TasksService {
 
 		// if not found, throw a 404 error
 		if (!found) {
-			throw new NotFoundException(); // will throw an notfoundexception object
+			throw new NotFoundException(`Task with id: ${id} was not found`); // will throw an notfoundexception object
 		}
 
 		// otherwise, return the found task
