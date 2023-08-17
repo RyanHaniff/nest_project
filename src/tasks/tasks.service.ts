@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 // latest version of uuid, ranmed it like in python
 import { v4 as uuid } from 'uuid';
@@ -15,8 +15,21 @@ export class TasksService {
 		return this.tasks;
 	}
 
+	// if we dont have a task already made it sends a 200 response
+	// when we do not want that
 	getTaskById(id: string): Task {
-		return this.tasks.find((task) => task.id === id); //without the curly braces it gets automatically returned
+
+		// try and get the task
+		//without the curly braces it gets automatically returned
+		const found = this.tasks.find((task) => task.id === id); 
+
+		// if not found, throw a 404 error
+		if (!found) {
+			throw new NotFoundException(); // will throw an notfoundexception object
+		}
+
+		// otherwise, return the found task
+		return found
 	}
 
 	deleteTask(id: string): void {
