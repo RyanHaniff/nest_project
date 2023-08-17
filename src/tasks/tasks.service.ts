@@ -33,8 +33,11 @@ export class TasksService {
 	}
 
 	deleteTask(id: string): void {
+		// we can reuse the exception handling from
+		// getTaskById() to throw the error
+		const found = this.getTaskById(id);
 		// loop over and find the id
-		this.tasks = this.tasks.filter((task) => task.id !== id);
+		this.tasks = this.tasks.filter((task) => task.id !== found.id);
 	}
 
 	updateTaskStatus(id: string, status: TaskStatus): Task {
